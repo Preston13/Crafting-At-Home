@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Survivor : MonoBehaviour
 {
@@ -10,16 +11,20 @@ public class Survivor : MonoBehaviour
 
     public float maxHealth = 100f;
     public float curHealth;
+    public Slider healthBar;
+    public bool inHome = false;
 
     private bool hasGasMaskBottom = false;
     private bool hasGasMaskTop = false;
     private bool fullgasMask = false;
-    public bool inHome = false;
+    
+    
 
     // Start is called before the first frame update
     void Start()
     {
         curHealth = maxHealth;
+        
     }
 
     // Update is called once per frame
@@ -30,11 +35,11 @@ public class Survivor : MonoBehaviour
             fullgasMask = true;
         }
 
-        if (inHome == false && fullgasMask == false)
+        if (inHome == false && fullgasMask == false && curHealth > 0)
         {
             curHealth -= 1f;
         }
-        else if(inHome == false && fullgasMask == true)
+        else if(inHome == false && fullgasMask == true && curHealth > 0)
         {
             curHealth -= .5f;
         }
@@ -42,39 +47,41 @@ public class Survivor : MonoBehaviour
         {
             curHealth += 1f;
         }
+
+        healthBar.value = curHealth;
     }
 
-    private void OnTriggerEnter(Collider coll)
+    
+
+    private void OnTriggerEnter2D(Collider2D coll)
     {
-        if(coll.name == "pixel house")
+        if (coll.name == "pixel house")
         {
             inHome = true;
         }
 
         PickUp pup = coll.GetComponent<PickUp>();
 
-        if(pup == null)
+        if (pup == null)
         {
             return;
         }
 
-        if(pup.itemType == PickUp.eType.gasMaskBottom)
+        if (pup.itemType == PickUp.eType.gasMaskBottom)
         {
             hasGasMaskBottom = true;
             Destroy(coll.gameObject);
         }
-        if(pup.itemType == PickUp.eType.gasMaskTop)
+        if (pup.itemType == PickUp.eType.gasMaskTop)
         {
             hasGasMaskTop = true;
             Destroy(coll.gameObject);
         }
-        
-
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D coll)
     {
-        if (other.name == "pixel house")
+        if (coll.name == "pixel house")
         {
             inHome = false;
         }
