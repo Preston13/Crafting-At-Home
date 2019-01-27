@@ -12,7 +12,7 @@ public class Survivor : MonoBehaviour
     public float maxHealth = 100f;
     public float curHealth;
     public Slider healthBar;
-    public bool inHome = false;
+    public bool inHome = true;
     public Camera mainCam;
     public Camera houseCam;
     public TopDownCam cameraScript;
@@ -20,6 +20,9 @@ public class Survivor : MonoBehaviour
     private bool hasGasMaskBottom = false;
     private bool hasGasMaskTop = false;
     public bool fullgasMask = false;
+    public bool hasMeds = false;
+    public bool hasFood = false;
+    public bool hasConsole = false;
 
     public GameObject player;
     
@@ -29,6 +32,8 @@ public class Survivor : MonoBehaviour
     void Start()
     {
         curHealth = maxHealth;
+        houseCam.enabled = true;
+        mainCam.enabled = false;
         
     }
 
@@ -62,7 +67,6 @@ public class Survivor : MonoBehaviour
     {
         if (coll.name == "pixel house")
         {
-            inHome = true;
             WarpSurvivorHome();
         }
 
@@ -88,13 +92,20 @@ public class Survivor : MonoBehaviour
             hasGasMaskTop = true;
             Destroy(coll.gameObject);
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D coll)
-    {
-        if (coll.name == "pixel house")
+        if (pup.itemType == PickUp.eType.food)
         {
-            inHome = false;
+            hasFood = true;
+            Destroy(coll.gameObject);
+        }
+        if (pup.itemType == PickUp.eType.meds)
+        {
+            hasMeds = true;
+            Destroy(coll.gameObject);
+        }
+        if (pup.itemType == PickUp.eType.console)
+        {
+            hasConsole = true;
+            Destroy(coll.gameObject);
         }
     }
 
@@ -102,12 +113,13 @@ public class Survivor : MonoBehaviour
     {
         houseCam.enabled = true;
         mainCam.enabled = false;
+        inHome = true;
         player.transform.position = new Vector3(314, 150, 0);
     }
 
     private void WarpSurvivorOut()
     {
-        
+        inHome = false;
         player.transform.position = new Vector3(55, 5.2f, 0);
         Invoke("EnableCamera", 1);
     }

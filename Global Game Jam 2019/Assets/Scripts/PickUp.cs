@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    public enum eType { gasMaskBottom, gasMaskTop, food, meds};
+    public enum eType { gasMaskBottom, gasMaskTop, food, meds, console};
 
     public eType itemType;
     // Start is called before the first frame update
