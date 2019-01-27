@@ -13,6 +13,8 @@ public class Survivor : MonoBehaviour
     public float curHealth;
     public Slider healthBar;
     public bool inHome = false;
+    public Camera mainCam;
+    public Camera houseCam;
 
     private bool hasGasMaskBottom = false;
     private bool hasGasMaskTop = false;
@@ -92,6 +94,8 @@ public class Survivor : MonoBehaviour
 
     private void WarpSurvivorHome()
     {
-        player.transform.position = new Vector3(315, 154, 0);
+        houseCam.enabled = true;
+        mainCam.enabled = false;
+        player.transform.position = new Vector3(314, 150, 0);
     }
 }
