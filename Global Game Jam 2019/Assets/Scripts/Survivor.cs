@@ -74,11 +74,13 @@ public class Survivor : MonoBehaviour
 
         if(curHealth <= 0)
         {
+            PlayDeathNoise();
             SceneManager.LoadScene("Death");
         }
         
         if(hasMeds && hasFood && hasConsole && inHome)
         {
+            PlayVictoryNoise();
             SceneManager.LoadScene("Win");
         }
     }
@@ -87,6 +89,17 @@ public class Survivor : MonoBehaviour
     {
         audioSource.PlayOneShot(pickupSound, 1);
     }
+
+    private void PlayVictoryNoise()
+    {
+        audioSource.PlayOneShot(VictorySound, 1);
+    }
+
+    private void PlayDeathNoise()
+    {
+        audioSource.PlayOneShot(gameOverSound, 1);
+    }
+
 
     private void PlayDoorClose()
     {
