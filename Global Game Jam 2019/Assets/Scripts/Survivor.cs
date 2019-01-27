@@ -16,7 +16,9 @@ public class Survivor : MonoBehaviour
 
     private bool hasGasMaskBottom = false;
     private bool hasGasMaskTop = false;
-    public bool fullgasMask = false;
+    private bool fullgasMask = false;
+
+    public GameObject player;
     
     
 
@@ -55,7 +57,11 @@ public class Survivor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        
+        if (coll.name == "pixel house")
+        {
+            inHome = true;
+            WarpSurvivorHome();
+        }
 
         PickUp pup = coll.GetComponent<PickUp>();
 
@@ -75,5 +81,17 @@ public class Survivor : MonoBehaviour
             Destroy(coll.gameObject);
         }
     }
-    
+
+    private void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.name == "pixel house")
+        {
+            inHome = false;
+        }
+    }
+
+    private void WarpSurvivorHome()
+    {
+        player.transform.position = new Vector3(315, 154, 0);
+    }
 }
