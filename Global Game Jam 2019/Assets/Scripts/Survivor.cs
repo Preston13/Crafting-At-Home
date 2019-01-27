@@ -101,7 +101,7 @@ public class Survivor : MonoBehaviour
     {
         houseCam.enabled = true;
         mainCam.enabled = false;
-        player.transform.position = new Vector3(314, 151, 0);
+        player.transform.position = new Vector3(314, 150, 0);
     }
 
     private void WarpSurvivorOut()
