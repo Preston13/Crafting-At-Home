@@ -9,12 +9,14 @@ public class TopDownMovement : MonoBehaviour
 
     private Rigidbody2D rigid;
     private Animator anim;
+    private Survivor survivor;
 
     // Start is called before the first frame update
     void Start()
     {
         rigid = player.GetComponent<Rigidbody2D>();
         anim = player.GetComponent<Animator>();
+        survivor = player.GetComponent<Survivor>();
     }
 
     // Update is called once per frame
@@ -23,25 +25,45 @@ public class TopDownMovement : MonoBehaviour
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         player.transform.position += movement * moveSpeed * Time.deltaTime;
 
-        if(Input.GetAxis("Horizontal") > 0)
+        if(Input.GetAxis("Horizontal") > 0 && !survivor.fullgasMask)
         {
             anim.speed = 1;
             anim.Play("Walk_1");
         }
-        else if(Input.GetAxis("Horizontal") < 0)
+        else if(Input.GetAxis("Horizontal") < 0 && !survivor.fullgasMask)
         {
             anim.speed = 1;
             anim.Play("Walk_2");
         }
-        else if(Input.GetAxis("Vertical") > 0)
+        else if(Input.GetAxis("Vertical") > 0 && !survivor.fullgasMask)
         {
             anim.speed = 1;
             anim.Play("Walk_3");
         }
-        else if(Input.GetAxis("Vertical") < 0)
+        else if(Input.GetAxis("Vertical") < 0 && !survivor.fullgasMask)
         {
             anim.speed = 1;
             anim.Play("Walk_0");
+        }
+        else if(Input.GetAxis("Horizontal") > 0 && survivor.fullgasMask)
+        {
+            anim.speed = 1;
+            anim.Play("Mask_Walk_1");
+        }
+        else if(Input.GetAxis("Horizontal") < 0 && survivor.fullgasMask)
+        {
+            anim.speed = 1;
+            anim.Play("Mask_Walk_2");
+        }
+        else if(Input.GetAxis("Vertical") > 0 && survivor.fullgasMask)
+        {
+            anim.speed = 1;
+            anim.Play("Mask_Walk_3");
+        }
+        else if(Input.GetAxis("Vertical") < 0 && survivor.fullgasMask)
+        {
+            anim.speed = 1;
+            anim.Play("Mask_Walk_0");
         }
         else
         {
