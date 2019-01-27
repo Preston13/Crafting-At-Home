@@ -50,3 +50,6 @@ TagManager:
   - name: Trees
     uniqueID: 469255507
     locked: 0
+  - name: Fog
+    uniqueID: 3559675237
+    locked: 0
