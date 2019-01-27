@@ -15,6 +15,7 @@ public class Survivor : MonoBehaviour
     public bool inHome = false;
     public Camera mainCam;
     public Camera houseCam;
+    public TopDownCam cameraScript;
 
     private bool hasGasMaskBottom = false;
     private bool hasGasMaskTop = false;
@@ -106,7 +107,14 @@ public class Survivor : MonoBehaviour
 
     private void WarpSurvivorOut()
     {
-        player.transform.position = new Vector3(55, 3, 0);
+        
+        player.transform.position = new Vector3(55, 5.2f, 0);
+        Invoke("EnableCamera", 1);
+    }
 
+    void EnableCamera()
+    {
+        mainCam.enabled = true;
+        houseCam.enabled = false;
     }
 }
