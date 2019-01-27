@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Survivor : MonoBehaviour
 {
@@ -59,6 +60,16 @@ public class Survivor : MonoBehaviour
         }
 
         healthBar.value = curHealth;
+
+        if(curHealth <= 0)
+        {
+            SceneManager.LoadScene("Death");
+        }
+        
+        if(hasMeds && hasFood && hasConsole && inHome)
+        {
+            SceneManager.LoadScene("Win");
+        }
     }
 
     
