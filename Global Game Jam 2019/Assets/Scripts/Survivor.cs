@@ -161,16 +161,19 @@ public class Survivor : MonoBehaviour
         }
         if (pup.itemType == PickUp.eType.food)
         {
+            PlayPickupNoise();
             hasFood = true;
             Destroy(coll.gameObject);
         }
         if (pup.itemType == PickUp.eType.meds)
         {
+            PlayPickupNoise();
             hasMeds = true;
             Destroy(coll.gameObject);
         }
         if (pup.itemType == PickUp.eType.console)
         {
+            PlayPickupNoise();
             hasConsole = true;
             Destroy(coll.gameObject);
         }
