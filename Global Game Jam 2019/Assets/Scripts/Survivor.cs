@@ -65,6 +65,11 @@ public class Survivor : MonoBehaviour
             WarpSurvivorHome();
         }
 
+        if (coll.name == "HouseExit")
+        {
+            WarpSurvivorOut();
+        }
+
         PickUp pup = coll.GetComponent<PickUp>();
 
         if (pup == null)
@@ -96,6 +101,12 @@ public class Survivor : MonoBehaviour
     {
         houseCam.enabled = true;
         mainCam.enabled = false;
-        player.transform.position = new Vector3(314, 150, 0);
+        player.transform.position = new Vector3(314, 151, 0);
+    }
+
+    private void WarpSurvivorOut()
+    {
+        player.transform.position = new Vector3(55, 3, 0);
+
     }
 }
