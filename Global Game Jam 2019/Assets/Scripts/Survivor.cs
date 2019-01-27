@@ -16,7 +16,7 @@ public class Survivor : MonoBehaviour
 
     private bool hasGasMaskBottom = false;
     private bool hasGasMaskTop = false;
-    private bool fullgasMask = false;
+    public bool fullgasMask = false;
 
     public GameObject player;
     
