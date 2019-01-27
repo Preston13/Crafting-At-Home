@@ -17,6 +17,8 @@ public class Survivor : MonoBehaviour
     private bool hasGasMaskBottom = false;
     private bool hasGasMaskTop = false;
     private bool fullgasMask = false;
+
+    public GameObject player;
     
     
 
@@ -58,6 +60,7 @@ public class Survivor : MonoBehaviour
         if (coll.name == "pixel house")
         {
             inHome = true;
+            WarpSurvivorHome();
         }
 
         PickUp pup = coll.GetComponent<PickUp>();
@@ -85,5 +88,10 @@ public class Survivor : MonoBehaviour
         {
             inHome = false;
         }
+    }
+
+    private void WarpSurvivorHome()
+    {
+        player.transform.position = new Vector3(315, 154, 0);
     }
 }
