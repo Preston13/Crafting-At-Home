@@ -24,6 +24,16 @@ public class Survivor : MonoBehaviour
     public bool hasFood = false;
     public bool hasConsole = false;
 
+    public AudioClip doorClose;
+    public AudioClip doorOpen;
+    public AudioClip pickupSound;
+    public AudioClip gameOverSound;
+    public AudioClip VictorySound;
+
+    public AudioClip getMaskSound;
+
+    private AudioSource audioSource;
+
     public GameObject player;
     
     
@@ -34,6 +44,7 @@ public class Survivor : MonoBehaviour
         curHealth = maxHealth;
         houseCam.enabled = true;
         mainCam.enabled = false;
+        audioSource = GetComponent<AudioSource>();
         
     }
 
@@ -61,17 +72,38 @@ public class Survivor : MonoBehaviour
         healthBar.value = curHealth;
     }
 
-    
+    private void PlayPickupNoise()
+    {
+        audioSource.PlayOneShot(pickupSound, 1);
+    }
+
+    private void PlayDoorClose()
+    {
+        audioSource.PlayOneShot(doorClose, 1);
+    }
+
+    private void PlayDoorOpen()
+    {
+        audioSource.PlayOneShot(doorOpen, 1);
+    }
+
+    private void PlayGotMask()
+    {
+        audioSource.PlayOneShot(getMaskSound, 1);
+    }
+
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.name == "pixel house")
         {
+            PlayDoorOpen();
             WarpSurvivorHome();
         }
 
         if (coll.name == "HouseExit")
         {
+            PlayDoorClose();
             WarpSurvivorOut();
         }
 
@@ -86,11 +118,22 @@ public class Survivor : MonoBehaviour
         {
             hasGasMaskBottom = true;
             Destroy(coll.gameObject);
+            if (hasGasMaskBottom && hasGasMaskTop) {
+                PlayGotMask();
+            } else {
+                PlayPickupNoise();
+            }
         }
         if (pup.itemType == PickUp.eType.gasMaskTop)
         {
+            PlayPickupNoise();
             hasGasMaskTop = true;
             Destroy(coll.gameObject);
+        if (hasGasMaskBottom && hasGasMaskTop) {
+                PlayGotMask();
+            } else {
+                PlayPickupNoise();
+            }
         }
         if (pup.itemType == PickUp.eType.food)
         {
